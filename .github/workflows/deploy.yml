@@ -1,0 +1,29 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches: [ main ] # or your branch name
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup SSH
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H 3.110.165.234 >> ~/.ssh/known_hosts
+
+    - name: Deploy to EC2 and Restart App
+      run: |
+        ssh ubuntu@3.110.165.234 << 'EOF'
+          cd /var/www/html/cicd
+          git pull origin main
+          npm install
+          pm2 reload all || pm2 start app.js --name "pm2-aws"
+        EOF

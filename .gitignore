@@ -5,6 +5,9 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# Notes
+notes/
+
 # Logs
 logs
 *.log

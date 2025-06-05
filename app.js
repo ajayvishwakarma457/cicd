@@ -17,7 +17,7 @@ app.post('/data', (req, res) => {
 });
 
 // Example POST route
-app.post('/about', (req, res) => {
+app.get('/about', (req, res) => {
   res.send('Hello, About Us');
 });
 

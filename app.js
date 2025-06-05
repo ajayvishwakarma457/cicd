@@ -16,6 +16,11 @@ app.post('/data', (req, res) => {
   res.json({ message: 'Data received', data: received });
 });
 
+// Example POST route
+app.post('/about', (req, res) => {
+  res.send('Hello, About Us');
+});
+
 // Start server
 const PORT = 3000;
 app.listen(PORT, () => {
